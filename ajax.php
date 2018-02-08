@@ -35,8 +35,8 @@ if(isset($_SESSION['facebook_access_token'])){
 // Get photo albums of Facebook page using Facebook Graph API
 $fields = "id,name,description,link,cover_photo,count";
 $fb_page_id = "1438451763044761";
-$album_id = '1451488978407706';
-$graphPhoLink = isset($_REQUEST['link']) ? $_REQUEST['link'] : "https://graph.facebook.com/v2.12/{$album_id}/photos?fields=created_time,link,source,caption,count&access_token={$access_token}";
+$album_id = '472758686102628';
+$graphPhoLink = isset($_REQUEST['link']) ? $_REQUEST['link'] : "https://graph.facebook.com/v2.12/{$album_id}/photos?fields=count,created_time,images,likes.summary(true),link,source,caption&access_token={$access_token}&limit=20";
 
 
 $jsonData = file_get_contents($graphPhoLink);
@@ -44,6 +44,17 @@ $fbPhotoObj = json_decode($jsonData, true, 512, JSON_BIGINT_AS_STRING);
 
 $array = array();
 // Facebook albums content
+
+// foreach ($fbPhotoObj['data'] as $key => $value) {
+//     //GET LIKES FOR PHOTO
+
+//     $id = $value['id'];
+//     $image_link = "https://graph.facebook.com/v2.12/{$id}/photos?fields=created_time,likes,link,source,caption&access_token={$access_token}";
+//     $jsonData = file_get_contents($image_link);
+//     $image_link_obj = json_decode($jsonData, true, 512, JSON_BIGINT_AS_STRING);
+// }
+
+
 $array['photo'] = $fbPhotoObj['data'];
 
 

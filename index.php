@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gallery</title>
+    <title>Facebook Gallery</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
     <style type="text/css">
         .card-columns {
-            column-count: 4;
+            column-count: 3;
         }
+
+        .card,.card-img-top{
+            border-radius: 0;
+        }
+
+        .like-btn{
+            position: absolute;
+            border-radius: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            border: 0;
+            margin: 5px;
+            font-size:0.75rem;
+        }
+
 
     </style>
     <div class="container">
+        <h1>Facebook Gallery</h1>
         <div class="gallery"></div>
         <hr>
         <nav aria-label="...">
@@ -38,9 +54,9 @@
     <div class="card-columns">
     {{#each photo}}
         <div class="card">
-            <img class="card-img-top img-fluid" src='{{source}}' alt=''>
+            <img class="card-img-top img-fluid" src='{{images.1.source}}' alt=''>
             <div class="card-block">
-                <a href="{{link}}"><span class="btn btn-primary"><i class="fas fa-thumbs-up"></i></span></a>
+                <a class="btn btn-primary like-btn" href="{{link}}"><i class="fas fa-thumbs-up"></i><span class="ml-2">{{likes.summary.total_count}}</span></a>
                 <!-- <p class="card-title">{{created_time}}</p> -->
             </div>
         </div>
