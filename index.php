@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Facebook Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -23,32 +24,32 @@
             margin: 5px;
             font-size:0.75rem;
         }
-
-
     </style>
-    <div class="container">
-        <h1>Facebook Gallery</h1>
-        <div class="gallery"></div>
-        <hr>
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item">
-              <a id="previous" class="page-link" href="#">Previous</a>
-            </li>
-            <!-- <li class="page-item"><a class="page-link" href="">1</a></li>
-            <li class="page-item active">
-              <span class="page-link">
-                2
-                <span class="sr-only">(current)</span>
-              </span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-            <li class="page-item">
-              <a id="next" class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-    </div>
+    <style type="text/css"></style>
+
+        <div class="container-fluid">
+            
+            <div class="gallery"></div>
+            <hr>
+            <nav aria-label="...">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a id="previous" class="page-link" href="#">Previous</a>
+                </li>
+                <!-- <li class="page-item"><a class="page-link" href="">1</a></li>
+                <li class="page-item active">
+                  <span class="page-link">
+                    2
+                    <span class="sr-only">(current)</span>
+                  </span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                <li class="page-item">
+                  <a id="next" class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+        </div>
 
     <script id="entry-template" type="text/x-handlebars-template">
     <div class="card-columns">
@@ -67,6 +68,7 @@
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="js/handlebars-v4.0.11.js"></script>
+    <script type="text/javascript" src="js/iframe.js"></script>
     <script>
     $(function(){
 
@@ -79,10 +81,14 @@
 
         function getfbphotos(link){
             console.log(link);
+            albumid = getUrlParameter("albumid");
+
+            console.log(albumid);
+
             $.ajax({
                 url: "ajax.php",
                 type: "post",
-                data: {'link' : link},
+                data: {'link' : link, 'albumid': albumid},
                 dataType: "json"
             }).done(function(data){
                 console.log(data);
@@ -100,6 +106,13 @@
                     $("#previous").attr("href",data.paging.previous);
                 }
             })
+        }
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
 
 

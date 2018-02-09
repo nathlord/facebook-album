@@ -3,6 +3,12 @@
 $appId = '155177361731935';
 $appSecret = '62c1825ce1ff16e873eff134fbbeb063';
 
+//$album_id = '472758686102628';
+
+if($_REQUEST['albumid']){
+    $album_id = $_REQUEST['albumid'];
+}
+
 if(!session_id()){
     session_start();
 }
@@ -35,7 +41,6 @@ if(isset($_SESSION['facebook_access_token'])){
 // Get photo albums of Facebook page using Facebook Graph API
 $fields = "id,name,description,link,cover_photo,count";
 $fb_page_id = "1438451763044761";
-$album_id = '472758686102628';
 $graphPhoLink = isset($_REQUEST['link']) ? $_REQUEST['link'] : "https://graph.facebook.com/v2.12/{$album_id}/photos?fields=count,created_time,images,likes.summary(true),link,source,caption&access_token={$access_token}&limit=20";
 
 
